@@ -32,9 +32,16 @@ module ShopifyCli
         @project_type
       end
 
-      def register_command(const, cmd, path = nil)
-        project_path = File.join(ShopifyCli::PROJECT_TYPES_DIR, @project_type.to_s, path)
-        Commands.register(const, cmd, project_path)
+      def project_filepath(path)
+        File.join(ShopifyCli::PROJECT_TYPES_DIR, @project_type.to_s, path)
+      end
+
+      def register_command(const, cmd, path)
+        Commands.register(const, cmd, project_filepath(path))
+      end
+
+      def register_task(task, name, path)
+        Task.register(task, name, project_filepath(path))
       end
     end
   end
