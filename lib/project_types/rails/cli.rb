@@ -1,3 +1,9 @@
-class RailsProject < ShopifyCli::ProjectType
-  register_command(:Serve, "serve", "commands/serve")
+module Rails
+  class Project < ShopifyCli::ProjectType
+    register_command('Rails::Commands::Serve', "serve")
+  end
+
+  module Commands
+    autoload :Serve, 'project_types/rails/commands/serve'
+  end
 end

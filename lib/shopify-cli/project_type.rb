@@ -36,12 +36,12 @@ module ShopifyCli
         File.join(ShopifyCli::PROJECT_TYPES_DIR, @project_type.to_s, path)
       end
 
-      def register_command(const, cmd, path)
-        Commands.register(const, cmd, project_filepath(path))
+      def register_command(const, cmd)
+        Commands::Registry.add(->() { const_get(const) }, cmd)
       end
 
-      def register_task(task, name, path)
-        Task.register(task, name, project_filepath(path))
+      def register_task(task, name)
+        Task::Registry.add(const_get(task), name)
       end
     end
   end
