@@ -1,6 +1,8 @@
 module ShopifyCli
   class ProjectType
     class << self
+      attr_accessor :project_type
+
       def load_project_type(current_type)
         filepath = File.join(ROOT, 'lib', 'project_types', current_type.to_s, 'cli.rb')
         return unless File.exist?(filepath)
@@ -24,16 +26,8 @@ module ShopifyCli
         end
       end
 
-      def project_type=(type)
-        @project_type = type
-      end
-
-      def project_type
-        @project_type
-      end
-
       def project_filepath(path)
-        File.join(ShopifyCli::PROJECT_TYPES_DIR, @project_type.to_s, path)
+        File.join(ShopifyCli::PROJECT_TYPES_DIR, project_type.to_s, path)
       end
 
       def register_command(const, cmd)
